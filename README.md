@@ -33,54 +33,71 @@ By using three variable K-Map, we can get the simplified expression for next sta
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is Q(t+1)=JQ(t)′+K′Q(t)Q(t+1)=JQ(t)′+K′Q(t)
 
 **Procedure**
+1. Define Module: Define a Verilog module for the JK flip-flop with inputs (J, K, CLK) and outputs (Q, Q_bar).
 
-STEP 1:Type the program in Quartus software.
+2. Declare Inputs and Outputs: Declare input and output ports for the module.
 
-STEP 2:Compile and run the program.
+3. Implement Flip-Flop Logic: Write Verilog code to implement the JK flip-flop logic based on its functional table. Use a synchronous always @(posedge CLK) block to trigger the flip-flop on the positive edge of the clock signal.
 
-STEP 3:Generate the RTL schematic and save the logic diagram.
+4. Simulate Using Testbench: Write a Verilog testbench to simulate the behavior of the JK flip-flop under different input conditions.
 
-STEP 4:Create nodes for inputs and outputs to generate the timing diagram.
+5. Apply Input Stimuli: In the testbench, apply various combinations of input stimuli (J, K, CLK) to cover all possible input states.
 
-STEP 5:For different input combinations generate the timing diagram.
+6. Verify Output Behavior: Verify that the output behavior of the JK flip-flop matches the expected behavior defined by its functional table.
+
+7. Check for Race Conditions: Ensure that there are no race conditions or undefined states in the design by analyzing the timing and sequence of input changes.
+
 
 **PROGRAM**
 
 Developed by:JEGATHEESWARI R
 RegisterNumber:212223230092
-
-
 ```
+module JKFLIPFLOPUSINGIFELSE(q, qb,j,k,clock,reset);
+    input j,k,clock,reset;
+    output reg q, qb;
+	 
+always @ (posedge (clock))
 
-module SRFLIPFLOPUSINGCASE(q, q_bar, s,r, clk, reset);//SR Flip Flop Behavioral Level using ‘case’ 
-  input s,r,clk, reset;
-  output reg q;
-  output q_bar;
+    begin 
+        if (!reset)
+            begin
+               q <= q;
+               qb <=qb;
+            end
+else 
+      begin
+        if (j==0 && k==0)
+		       begin
+			    q <= q;
+			    q <= qb;
+			    end	 
+        
+        else if (j!=k)
+             begin
+	          q <= j;
+	          qb <= k;
+	          end
+        else if (j==1 && k==1)
+             begin
+	          q <= ~q;
+	          qb <= ~qb;
+	          end
+	  
+      end
  
-  always@(posedge clk) begin // for synchronous reset
-    if(!reset)
-		q <= 0;
-    else 
-  begin
-      case({s,r})       
-	     2'b00: q <= q;    // No change
-		  2'b01: q <= 1'b0; // Write logic for reset
-        2'b10: q <= 1'b1; // Write logic for set
-		  2'b11:	q <= 1'bx; // Write logic for Invalid state
-      endcase
-    end
-  end
-  assign q_bar = ~q;
+end           
 endmodule
+
 ```
 
 **RTL LOGIC FOR FLIPFLOPS**
-![rtl 1](https://github.com/Jegatheeswarir/JKFLIPFLOP-USING-IF-ELSE/assets/144871077/4b17a95a-4868-4bdb-a52f-ee777bc293c0)
+![RTLT](https://github.com/Jegatheeswarir/JKFLIPFLOP-USING-IF-ELSE/assets/144871077/0148975f-35d7-4a68-9279-d4c249e1776c)
 
 
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
-![timingdiagram 2](https://github.com/Jegatheeswarir/JKFLIPFLOP-USING-IF-ELSE/assets/144871077/021f8782-1302-45ab-9c7b-2194e10a1b4b)
+![TIME](https://github.com/Jegatheeswarir/JKFLIPFLOP-USING-IF-ELSE/assets/144871077/2029f8f4-bc7e-45c1-a785-adddc7f3673f)
 
 
 **RESULTS**
