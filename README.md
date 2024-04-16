@@ -43,12 +43,13 @@ STEP 3:Generate the RTL schematic and save the logic diagram.
 STEP 4:Create nodes for inputs and outputs to generate the timing diagram.
 
 STEP 5:For different input combinations generate the timing diagram.
-**PROGRAM**
 
-/* Program for flipflops and verify its truth table in quartus using Verilog programming.
+**PROGRAM**
+```
 Developed by:JEGATHEESWARI R
 RegisterNumber:212223230092
-*/
+```
+
 ```
 
 module SRFLIPFLOPUSINGCASE(q, q_bar, s,r, clk, reset);//SR Flip Flop Behavioral Level using ‘case’ 
